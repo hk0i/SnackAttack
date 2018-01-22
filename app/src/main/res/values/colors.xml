@@ -6,4 +6,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="lightGray">#eee</color>
     <color name="darkGray">#ccc</color>
+    <color name="veggie">#2e7d32</color>
+    <color name="nonVeggie">#b71c1c</color>
 </resources>

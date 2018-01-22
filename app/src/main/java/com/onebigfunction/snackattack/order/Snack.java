@@ -1,5 +1,7 @@
 package com.onebigfunction.snackattack.order;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 /**
@@ -9,7 +11,7 @@ import android.support.annotation.NonNull;
  * Created by gmcquillan on 1/21/18.
  */
 
-final class Snack {
+final class Snack implements Parcelable, Comparable<Snack> {
     private final String mName;
     private final String mDescription;
 
@@ -37,15 +39,59 @@ final class Snack {
         mIsVeggie = isVeggie;
     }
 
+    private Snack(Parcel in) {
+        mName = in.readString();
+        mDescription = in.readString();
+        mIsVeggie = in.readByte() != 0;
+    }
+
+    public static final Creator<Snack> CREATOR = new Creator<Snack>() {
+        @Override
+        public Snack createFromParcel(Parcel in) {
+            return new Snack(in);
+        }
+
+        @Override
+        public Snack[] newArray(int size) {
+            return new Snack[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mName);
+        parcel.writeString(mDescription);
+        parcel.writeByte((byte) (mIsVeggie ? 1 : 0));
+    }
+
+    /**
+     * @return the name of the snack, i.e., "Red Apple"
+     */
     public String getName() {
         return mName;
     }
 
+    /**
+     * @return a description of the snack, i.e., "A succulent red apple"
+     */
     public String getDescription() {
         return mDescription;
     }
 
+    /**
+     * @return {@code true} if this snack is vegetarian, {@code false} if it is not.
+     */
     public boolean isVeggie() {
         return mIsVeggie;
+    }
+
+    @Override
+    public int compareTo(@NonNull Snack snack) {
+        return getName().compareTo(snack.getName());
     }
 }

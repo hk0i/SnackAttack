@@ -3,4 +3,6 @@
     <string name="isVeggieCheckbox">Vegetarian</string>
     <string name="nonVeggieCheckbox">Non-Vegetarian</string>
     <string name="placeOrderButton">Place Order</string>
+    <string name="isVeggie_label">Veggie</string>
+    <string name="isNonVeggie_label">Non-Veggie</string>
 </resources>
