@@ -2,6 +2,7 @@ package com.onebigfunction.snackattack.order;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,12 +42,11 @@ class SnackListAdapter extends RecyclerView.Adapter {
             mOrderCheckBox.setText(snack.getName());
             if (snack.isVeggie()) {
                 mMealTypeTextView.setText(R.string.isVeggie_label);
-                // TODO: create a class to abstract getColor for compatibility or find an app compat way of getting it
-                mMealTypeTextView.setTextColor(mContext.getColor(R.color.veggie));
+                mMealTypeTextView.setTextColor(ContextCompat.getColor(mContext, R.color.veggie));
             }
             else {
                 mMealTypeTextView.setText(R.string.isNonVeggie_label);
-                mMealTypeTextView.setTextColor(mContext.getColor(R.color.nonVeggie));
+                mMealTypeTextView.setTextColor(ContextCompat.getColor(mContext, R.color.nonVeggie));
             }
         }
     }
