@@ -34,9 +34,6 @@ public final class ParcelableAssistant {
             return (ArrayList<T>) list;
         }
 
-        ArrayList<T> arrayList = new ArrayList<>();
-        Collections.copy(list, arrayList);
-
-        return arrayList;
+        return new ArrayList<>(list);
     }
 }

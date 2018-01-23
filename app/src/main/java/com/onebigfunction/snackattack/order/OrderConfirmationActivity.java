@@ -7,16 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.onebigfunction.snackattack.R;
 import com.onebigfunction.snackattack.core.ParcelableAssistant;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class OrderConfirmationActivity extends AppCompatActivity {
 
     private static final String ORDER_ITEMS_EXTRA = "com.onebigfunction.snackattack.order.orderItems";
-    private List<Snack> mOrder;
+    private List<Snack> mOrderList;
 
     /**
      * Factory function to create an intent for the {@link OrderConfirmationActivity}.
@@ -39,16 +41,15 @@ public class OrderConfirmationActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
-        mOrder = intent.getParcelableArrayListExtra(ORDER_ITEMS_EXTRA);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_confirmation);
+
+        final Intent intent = getIntent();
+        mOrderList = intent.getParcelableArrayListExtra(ORDER_ITEMS_EXTRA);
+
+        ((TextView) findViewById(R.id.orderList_textView)).setText(
+                Arrays.toString(mOrderList.toArray()));
 
         Button finishOrderButton = (Button) findViewById(R.id.finishOrder_button);
         finishOrderButton.setOnClickListener(new View.OnClickListener() {
