@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.onebigfunction.snackattack.R;
+import com.onebigfunction.snackattack.core.Snack;
 
 import java.util.ArrayList;
 import java.util.Collections;

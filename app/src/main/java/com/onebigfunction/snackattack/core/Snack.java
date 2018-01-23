@@ -1,4 +1,4 @@
-package com.onebigfunction.snackattack.order;
+package com.onebigfunction.snackattack.core;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,13 +6,12 @@ import android.support.annotation.NonNull;
 
 /**
  * A class that represents a snack item.
- * Intentionally package-private.
  * Cannot be inherited.
  *
  * Created by gmcquillan on 1/21/18.
  */
 
-final class Snack implements Parcelable, Comparable<Snack> {
+public final class Snack implements Parcelable, Comparable<Snack> {
     private final String mName;
     private final String mDescription;
 
@@ -32,7 +31,7 @@ final class Snack implements Parcelable, Comparable<Snack> {
      * @param isVeggie {@code true} if this dish is a vegetarian dish, {@code false} if it cannot be considered
      *                             vegetarian.
      */
-    Snack(@NonNull final String name,
+    public Snack(@NonNull final String name,
                  @NonNull final String description,
                  final boolean isVeggie) {
         mName = name;
@@ -73,21 +72,21 @@ final class Snack implements Parcelable, Comparable<Snack> {
     /**
      * @return the name of the snack, i.e., "Red Apple"
      */
-    String getName() {
+    public String getName() {
         return mName;
     }
 
     /**
      * @return a description of the snack, i.e., "A succulent red apple"
      */
-    String getDescription() {
+    public String getDescription() {
         return mDescription;
     }
 
     /**
      * @return {@code true} if this snack is vegetarian, {@code false} if it is not.
      */
-    boolean isVeggie() {
+    public boolean isVeggie() {
         return mIsVeggie;
     }
 

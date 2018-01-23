@@ -1,5 +1,7 @@
 package com.onebigfunction.snackattack.order;
 
+import com.onebigfunction.snackattack.core.Snack;
+
 import java.util.List;
 
 /**

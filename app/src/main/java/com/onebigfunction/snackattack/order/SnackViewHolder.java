@@ -2,6 +2,8 @@ package com.onebigfunction.snackattack.order;
 
 import android.support.annotation.NonNull;
 
+import com.onebigfunction.snackattack.core.Snack;
+
 /**
  * Represents a view holder that can bind to a {@link Snack} object.
  * Intentionally package private since no other package requires SnackViewHolders.

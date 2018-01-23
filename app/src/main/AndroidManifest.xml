@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".order.OrderConfirmationActivity">
         </activity>
+        <activity android:name=".addsnack.AddSnackActivity">
+        </activity>
     </application>
 
 </manifest>

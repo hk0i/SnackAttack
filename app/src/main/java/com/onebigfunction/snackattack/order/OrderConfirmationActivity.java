@@ -11,11 +11,17 @@ import android.widget.TextView;
 
 import com.onebigfunction.snackattack.R;
 import com.onebigfunction.snackattack.core.ParcelableAssistant;
+import com.onebigfunction.snackattack.core.Snack;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class OrderConfirmationActivity extends AppCompatActivity {
+/**
+ * Activity for confirming an order that has been placed and finalizing the order.
+ * Displays a receipt of the ordered items.
+ *
+ * Not designed for inheritance.
+ */
+public final class OrderConfirmationActivity extends AppCompatActivity {
 
     private static final String ORDER_ITEMS_EXTRA = "com.onebigfunction.snackattack.order.orderItems";
     private List<Snack> mOrderList;

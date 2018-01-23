@@ -2,6 +2,8 @@ package com.onebigfunction.snackattack.order;
 
 import android.support.annotation.NonNull;
 
+import com.onebigfunction.snackattack.core.Snack;
+
 import java.util.List;
 
 /**

@@ -15,13 +15,18 @@ import android.widget.CompoundButton;
 
 import com.onebigfunction.snackattack.R;
 import com.onebigfunction.snackattack.core.ParcelableAssistant;
+import com.onebigfunction.snackattack.core.Snack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class OrderActivity extends AppCompatActivity {
+/**
+ * Activity for placing a snack order.
+ * Not designed for inheritance.
+ */
+public final class OrderActivity extends AppCompatActivity {
 
     private static final String SNACK_LIST_EXTRA = "com.onebigfunction.snackattack.order.OrderActivity.snackList";
     private static final String TAG = OrderActivity.class.getSimpleName();
