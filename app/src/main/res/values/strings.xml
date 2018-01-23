@@ -7,4 +7,5 @@
     <string name="isNonVeggie_label">Non-Veggie</string>
     <string name="thank_you_for_placing_your_order">Thank you for placing your order!</string>
     <string name="finish_order_button">Finish</string>
+    <string name="items_will_be_waiting">Your items will be waiting for you somewhere… I hope:</string>
 </resources>

@@ -22,15 +22,26 @@
         />
 
     <TextView
+        android:id="@+id/subcaption_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginSmall"
+        android:layout_marginTop="@dimen/marginSmall"
+        android:text="@string/items_will_be_waiting"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thankYou_textView"/>
+
+    <TextView
         android:id="@+id/orderList_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/marginMedium"
         android:lineSpacingExtra="5sp"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thankYou_textView"
+        app:layout_constraintTop_toBottomOf="@+id/subcaption_textView"
         tools:text="Pineapple\nOrange\nBananas\nCheeseburger"/>
 
     <Button

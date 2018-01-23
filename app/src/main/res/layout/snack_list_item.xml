@@ -5,15 +5,15 @@
                                              android:layout_width="match_parent"
                                              android:layout_height="wrap_content"
                                              android:orientation="horizontal"
-                                             android:paddingEnd="8dp"
-                                             android:paddingStart="8dp"
+                                             android:paddingEnd="@dimen/marginSmall"
+                                             android:paddingStart="@dimen/marginSmall"
                                              tools:showIn="@layout/activity_order">
 
     <CheckBox
         android:id="@+id/order_checkBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/marginSmall"
         android:paddingBottom="15dp"
         android:paddingTop="15dp"
         android:textAlignment="center"
@@ -29,7 +29,7 @@
         android:id="@+id/mealType_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/marginSmall"
         android:textColor="@color/veggie"
         app:layout_constraintBaseline_toBaselineOf="@+id/order_checkBox"
         app:layout_constraintRight_toRightOf="parent"
