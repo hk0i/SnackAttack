@@ -9,10 +9,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.onebigfunction.snackattack.R;
+import com.onebigfunction.snackattack.core.ParcelableAssistant;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,19 +27,24 @@ public class OrderActivity extends AppCompatActivity {
     private static final String SNACK_LIST_EXTRA = "com.onebigfunction.snackattack.order.OrderActivity.snackList";
     private static final String TAG = OrderActivity.class.getSimpleName();
     private List<Snack> mSnackList;
+    private boolean mShowVeggie = true;
+    private boolean mShowNonVeggie = true;
+    private SnackListAdapter mSnackListAdapter;
 
     /**
      * Creates an intent for the Order screen.
      *
+     * Dev note: makes use of {@link ParcelableAssistant#makeParcelableArrayList(List)}; read docs for more details.
+     *
      * @param context context to use to create intent
-     * @param snackList a list of snacks.
-     *                  Note: must be an {@link ArrayList} specifically for the {@link Parcelable} implementation.
+     * @param snackList a list of snacks to display as a menu.
      * @return returns an intent to start the Order Activity.
      */
     public static Intent createIntent(@NonNull final Context context,
-                                      @NonNull final ArrayList<Snack> snackList) {
+                                      @NonNull final List<Snack> snackList) {
         final Intent orderActivityIntent = new Intent(context, OrderActivity.class);
-        orderActivityIntent.putParcelableArrayListExtra(SNACK_LIST_EXTRA, snackList);
+        orderActivityIntent.putParcelableArrayListExtra(SNACK_LIST_EXTRA,
+                ParcelableAssistant.makeParcelableArrayList(snackList));
 
         return orderActivityIntent;
     }
@@ -43,10 +54,10 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        RecyclerView snackListRecyclerView = (RecyclerView) findViewById(R.id.snackList_recyclerView);
+        final RecyclerView snackListRecyclerView = (RecyclerView) findViewById(R.id.snackList_recyclerView);
         snackListRecyclerView.setHasFixedSize(true);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         snackListRecyclerView.setLayoutManager(layoutManager);
 
@@ -56,7 +67,46 @@ public class OrderActivity extends AppCompatActivity {
             mSnackList = createDefaultSnackList();
         }
 
-        snackListRecyclerView.setAdapter(new SnackListAdapter(mSnackList));
+        mSnackListAdapter = new SnackListAdapter(mSnackList);
+        snackListRecyclerView.setAdapter(mSnackListAdapter);
+
+        final Button placeOrderButton = (Button) findViewById(R.id.order_button);
+        placeOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                @SuppressWarnings("UnnecessaryLocalVariable") // trying to restrict functionality of the order handler.
+                final ViewOrderProtocol orderViewer = mSnackListAdapter;
+
+                final List<Snack> order = orderViewer.getOrder();
+                Log.d(TAG, "Submitting order: " + Arrays.toString(order.toArray()));
+
+                startActivity(OrderConfirmationActivity.createIntent(OrderActivity.this, order));
+            }
+        });
+
+        ((CheckBox) findViewById(R.id.isVeggie_checkbox)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean shouldShowVeggie) {
+                mShowVeggie = shouldShowVeggie;
+                updateSnackFilter();
+            }
+        });
+
+        ((CheckBox) findViewById(R.id.isNonVeggie_checkbox)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean shouldShowNonVeggie) {
+                mShowNonVeggie = shouldShowNonVeggie;
+                updateSnackFilter();
+            }
+        });
+    }
+
+    private void updateSnackFilter() {
+        @SnackFilterProtocol.FilterType int snackFilter = 0;
+        if (mShowNonVeggie) snackFilter |= SnackFilterProtocol.FILTER_TYPE_IS_NONVEGGIE;
+        if (mShowVeggie) snackFilter |= SnackFilterProtocol.FILTER_TYPE_IS_VEGGIE;
+
+        mSnackListAdapter.displayTypesMatching(snackFilter);
     }
 
     private List<Snack> createDefaultSnackList() {

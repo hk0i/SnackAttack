@@ -4,41 +4,143 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.onebigfunction.snackattack.R;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * An adapter to list snacks on screen.
+ *
  * Intentionally package private since the {@code order} package is the only package that should need snack list ui
  * functionality.
+ *
+ * Not designed for inheritance.
+ *
  * Created by gmcquillan on 1/21/18.
  */
 
-class SnackListAdapter extends RecyclerView.Adapter {
-    @NonNull
-    private final List<Snack> mSnackList;
+final class SnackListAdapter extends RecyclerView.Adapter implements SnackOrderProtocol, SnackFilterProtocol {
+
+
+    @NonNull private final List<Snack> mSnackList;
+
+    /**
+     * This list contains the filtered result of the full list
+     */
+    @NonNull private List<Snack> mDisplaySnackList;
+
+    @NonNull private final List<Snack> mOrderItems;
+
+    // TODO: possibly move SnackOrderProtocol to separate object.
+    /**
+     * Adds a snack to the list of items to order
+     *
+     * @param snack the snack to add to the order.
+     */
+    @Override
+    public void addSnackToOrder(@NonNull final Snack snack) {
+        Log.d(TAG, "Adding " + snack.toString() + " to order");
+        mOrderItems.add(snack);
+    }
+
+    /**
+     * Removes the given {@code snack} from the list.
+     * Operation performs in O(n) time complexity.
+     *
+     * @param snack snack to find and remove from the list.
+     */
+    @Override
+    public void removeSnackFromOrder(@NonNull Snack snack) {
+        Log.d(TAG, "Removing " + snack.toString() + " from order");
+        mOrderItems.remove(snack);
+    }
+
+    /**
+     * Returns an immutable copy of the ordered items.
+     *
+     * @return an immutable copy of the snack order line items.
+     */
+    @Override
+    public List<Snack> getOrder() {
+        return Collections.unmodifiableList(mOrderItems);
+    }
+
+    @Override
+    public void displayTypesMatching(@FilterType final int filterType) {
+        final List<Snack> tmpSnackList = new ArrayList<>();
+        if ((filterType & FILTER_TYPE_IS_VEGGIE) == FILTER_TYPE_IS_VEGGIE) {
+            Log.d(TAG, "Adding all veggie types");
+
+            for (Snack snack : mSnackList) {
+                if (snack.isVeggie()) tmpSnackList.add(snack);
+            }
+        }
+
+        if ((filterType & FILTER_TYPE_IS_NONVEGGIE) == FILTER_TYPE_IS_NONVEGGIE) {
+            Log.d(TAG, "Adding all non-veggie types");
+
+            for (Snack snack : mSnackList) {
+                if (!snack.isVeggie()) tmpSnackList.add(snack);
+            }
+        }
+
+        // alphabetize snacks
+        Collections.sort(tmpSnackList);
+
+        mDisplaySnackList = tmpSnackList;
+        notifyDataSetChanged();
+    }
 
     private static class ViewHolder extends RecyclerView.ViewHolder implements SnackViewHolder {
         @NonNull private final CheckBox mOrderCheckBox;
         @NonNull private final TextView mMealTypeTextView;
         @NonNull private final Context mContext;
+        private Snack mSnack;
 
-        private ViewHolder(@NonNull final View itemView, @NonNull final Context context) {
+        /**
+         * Creates a view holder for a snack list item.
+         *
+         * @param context context to be used for fetching colors and things
+         * @param itemView the encapsulating view that holds our list item's subviews
+         * @param snackOrderer the {@link SnackOrderProtocol} object to handle placing orders.
+         *                     Dev note: orderer is absolutely not a real world.
+         */
+        private ViewHolder(@NonNull final Context context,
+                           @NonNull final View itemView,
+                           @NonNull final SnackOrderProtocol snackOrderer) {
             super(itemView);
             mOrderCheckBox = (CheckBox) itemView.findViewById(R.id.order_checkBox);
             mMealTypeTextView = (TextView) itemView.findViewById(R.id.mealType_textView);
             mContext = context;
+
+            mOrderCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean shouldAdd) {
+                    if (shouldAdd) {
+                        snackOrderer.addSnackToOrder(mSnack);
+                    }
+                    else {
+                        snackOrderer.removeSnackFromOrder(mSnack);
+                    }
+                }
+            });
         }
 
         @Override
         public void bind(@NonNull final Snack snack) {
+            mSnack = snack;
             mOrderCheckBox.setText(snack.getName());
             if (snack.isVeggie()) {
                 mMealTypeTextView.setText(R.string.isVeggie_label);
@@ -57,6 +159,8 @@ class SnackListAdapter extends RecyclerView.Adapter {
      */
     SnackListAdapter(@NonNull final List<Snack> snackList) {
         mSnackList = snackList;
+        mDisplaySnackList = mSnackList;
+        mOrderItems = new ArrayList<>();
     }
 
     @Override
@@ -64,18 +168,18 @@ class SnackListAdapter extends RecyclerView.Adapter {
         final View snackListItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.snack_list_item,
                 parent, false);
 
-        return new ViewHolder(snackListItemView, parent.getContext());
+        return new ViewHolder(parent.getContext(), snackListItemView, this);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         SnackViewHolder viewHolder = (SnackViewHolder) holder;
-        viewHolder.bind(mSnackList.get(position));
+        viewHolder.bind(mDisplaySnackList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mSnackList.size();
+        return mDisplaySnackList.size();
     }
 
     @Override

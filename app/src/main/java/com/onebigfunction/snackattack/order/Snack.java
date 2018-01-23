@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 /**
  * A class that represents a snack item.
+ * Intentionally package-private.
  * Cannot be inherited.
  *
  * Created by gmcquillan on 1/21/18.
@@ -31,7 +32,7 @@ final class Snack implements Parcelable, Comparable<Snack> {
      * @param isVeggie {@code true} if this dish is a vegetarian dish, {@code false} if it cannot be considered
      *                             vegetarian.
      */
-    public Snack(@NonNull final String name,
+    Snack(@NonNull final String name,
                  @NonNull final String description,
                  final boolean isVeggie) {
         mName = name;
@@ -72,26 +73,35 @@ final class Snack implements Parcelable, Comparable<Snack> {
     /**
      * @return the name of the snack, i.e., "Red Apple"
      */
-    public String getName() {
+    String getName() {
         return mName;
     }
 
     /**
      * @return a description of the snack, i.e., "A succulent red apple"
      */
-    public String getDescription() {
+    String getDescription() {
         return mDescription;
     }
 
     /**
      * @return {@code true} if this snack is vegetarian, {@code false} if it is not.
      */
-    public boolean isVeggie() {
+    boolean isVeggie() {
         return mIsVeggie;
     }
 
     @Override
     public int compareTo(@NonNull Snack snack) {
         return getName().compareTo(snack.getName());
+    }
+
+    @Override
+    public String toString() {
+        return "Snack (" + this.hashCode() + ") {\n"
+                + "\tname: " + getName() + "\n"
+                + "\tdescription: " + getDescription() + "\n"
+                + "\tisVeggie: " + isVeggie() + "\n"
+                + "}";
     }
 }
