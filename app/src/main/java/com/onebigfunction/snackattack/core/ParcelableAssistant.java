@@ -3,8 +3,8 @@ package com.onebigfunction.snackattack.core;
 import android.content.Intent;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
 
 /**
  * Provides a set of utility methods for parceling objects.

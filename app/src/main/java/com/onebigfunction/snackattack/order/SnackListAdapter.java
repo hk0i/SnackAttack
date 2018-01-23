@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static android.content.ContentValues.TAG;
-
 /**
  * An adapter to list snacks on screen.
  *
@@ -33,6 +31,7 @@ import static android.content.ContentValues.TAG;
 
 final class SnackListAdapter extends RecyclerView.Adapter implements SnackOrderProtocol, SnackFilterProtocol {
 
+    private static final String TAG = SnackListAdapter.class.getSimpleName();
 
     @NonNull private final List<Snack> mSnackList;
 

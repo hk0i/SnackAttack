@@ -1,0 +1,36 @@
+{
+  "snacks": [
+    {
+      "name": "Apple",
+      "type": "Veggie"
+    },
+    {
+      "name": "Banana",
+      "type": "Veggie"
+    },
+    {
+      "name": "Carrots",
+      "type": "Veggie"
+    },
+    {
+      "name": "Cheeseburger",
+      "type": "Non-Veggie"
+    },
+    {
+      "name": "French fries",
+      "type": "Veggie"
+    },
+    {
+      "name": "Hamburger",
+      "type": "Non-Veggie"
+    },
+    {
+      "name": "Hot dog",
+      "type": "Non-Veggie"
+    },
+    {
+      "name": "Milk shake",
+      "type": "Non-Veggie"
+    }
+  ]
+}

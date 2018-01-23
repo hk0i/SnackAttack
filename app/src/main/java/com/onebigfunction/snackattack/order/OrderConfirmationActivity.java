@@ -48,8 +48,8 @@ public class OrderConfirmationActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         mOrderList = intent.getParcelableArrayListExtra(ORDER_ITEMS_EXTRA);
 
-        ((TextView) findViewById(R.id.orderList_textView)).setText(
-                Arrays.toString(mOrderList.toArray()));
+        OrderConfirmationPresenter presenter = new OrderConfirmationPresenter(mOrderList);
+        ((TextView) findViewById(R.id.orderList_textView)).setText(presenter.getOrderString());
 
         Button finishOrderButton = (Button) findViewById(R.id.finishOrder_button);
         finishOrderButton.setOnClickListener(new View.OnClickListener() {
