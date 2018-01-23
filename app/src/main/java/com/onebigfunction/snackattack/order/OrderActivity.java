@@ -25,6 +25,7 @@ public class OrderActivity extends AppCompatActivity {
 
     private static final String SNACK_LIST_EXTRA = "com.onebigfunction.snackattack.order.OrderActivity.snackList";
     private static final String TAG = OrderActivity.class.getSimpleName();
+    private static final int ORDER_CONFIRMATION_REQUEST = 1;
     private List<Snack> mSnackList;
     private boolean mShowVeggie = true;
     private boolean mShowNonVeggie = true;
@@ -79,7 +80,8 @@ public class OrderActivity extends AppCompatActivity {
                 final List<Snack> order = orderViewer.getOrder();
                 Log.d(TAG, "Submitting order: " + Arrays.toString(order.toArray()));
 
-                startActivity(OrderConfirmationActivity.createIntent(OrderActivity.this, order));
+                startActivityForResult(OrderConfirmationActivity.createIntent(OrderActivity.this, order),
+                        ORDER_CONFIRMATION_REQUEST);
             }
         });
 
@@ -98,6 +100,11 @@ public class OrderActivity extends AppCompatActivity {
                 updateSnackFilter();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void updateSnackFilter() {

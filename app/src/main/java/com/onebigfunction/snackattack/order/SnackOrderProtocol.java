@@ -10,4 +10,5 @@ import android.support.annotation.NonNull;
 interface SnackOrderProtocol extends ViewOrderProtocol {
     void addSnackToOrder(@NonNull final Snack snack);
     void removeSnackFromOrder(@NonNull final Snack snack);
+    boolean snackOrderContains(@NonNull final Snack snack);
 }

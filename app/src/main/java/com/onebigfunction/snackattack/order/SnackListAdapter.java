@@ -66,6 +66,11 @@ final class SnackListAdapter extends RecyclerView.Adapter implements SnackOrderP
         mOrderItems.remove(snack);
     }
 
+    @Override
+    public boolean snackOrderContains(@NonNull Snack snack) {
+        return mOrderItems.contains(snack);
+    }
+
     /**
      * Returns an immutable copy of the ordered items.
      *
@@ -138,9 +143,11 @@ final class SnackListAdapter extends RecyclerView.Adapter implements SnackOrderP
         }
 
         @Override
-        public void bind(@NonNull final Snack snack) {
+        public void bind(@NonNull final Snack snack, final boolean isInCart) {
             mSnack = snack;
             mOrderCheckBox.setText(snack.getName());
+            mOrderCheckBox.setChecked(isInCart);
+
             if (snack.isVeggie()) {
                 mMealTypeTextView.setText(R.string.isVeggie_label);
                 mMealTypeTextView.setTextColor(ContextCompat.getColor(mContext, R.color.veggie));
@@ -173,7 +180,9 @@ final class SnackListAdapter extends RecyclerView.Adapter implements SnackOrderP
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         SnackViewHolder viewHolder = (SnackViewHolder) holder;
-        viewHolder.bind(mDisplaySnackList.get(position));
+        final Snack snack = mDisplaySnackList.get(position);
+
+        viewHolder.bind(snack, snackOrderContains(snack));
     }
 
     @Override
