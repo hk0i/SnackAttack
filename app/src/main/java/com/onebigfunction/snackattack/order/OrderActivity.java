@@ -30,6 +30,7 @@ public class OrderActivity extends AppCompatActivity {
     private boolean mShowVeggie = true;
     private boolean mShowNonVeggie = true;
     private SnackListAdapter mSnackListAdapter;
+    private RecyclerView mSnackListRecyclerView;
 
     /**
      * Creates an intent for the Order screen.
@@ -54,12 +55,12 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        final RecyclerView snackListRecyclerView = (RecyclerView) findViewById(R.id.snackList_recyclerView);
-        snackListRecyclerView.setHasFixedSize(true);
+        mSnackListRecyclerView = (RecyclerView) findViewById(R.id.snackList_recyclerView);
+        mSnackListRecyclerView.setHasFixedSize(true);
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        snackListRecyclerView.setLayoutManager(layoutManager);
+        mSnackListRecyclerView.setLayoutManager(layoutManager);
 
         if (mSnackList == null) {
             // create the default snacklist if snacklist is empty
@@ -68,7 +69,7 @@ public class OrderActivity extends AppCompatActivity {
         }
 
         mSnackListAdapter = new SnackListAdapter(mSnackList);
-        snackListRecyclerView.setAdapter(mSnackListAdapter);
+        mSnackListRecyclerView.setAdapter(mSnackListAdapter);
 
         final Button placeOrderButton = (Button) findViewById(R.id.order_button);
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +106,8 @@ public class OrderActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        mSnackListAdapter = new SnackListAdapter(mSnackList);
+        mSnackListRecyclerView.setAdapter(mSnackListAdapter);
     }
 
     private void updateSnackFilter() {

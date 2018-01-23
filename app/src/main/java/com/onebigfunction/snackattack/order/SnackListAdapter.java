@@ -132,10 +132,14 @@ final class SnackListAdapter extends RecyclerView.Adapter implements SnackOrderP
             mOrderCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean shouldAdd) {
-                    if (shouldAdd) {
+                    if (shouldAdd && !snackOrderer.snackOrderContains(mSnack)) {
+                        // only add one of each item... if we need to add quantities later it should be a separate
+                        // field, perhaps stored in a map of Snack to Quantity.
                         snackOrderer.addSnackToOrder(mSnack);
                     }
-                    else {
+                    else if (!shouldAdd) {
+                        // NOTE: explicitly checking for !shouldAdd since our previous condition also checks whether or
+                        // snack is in the order.
                         snackOrderer.removeSnackFromOrder(mSnack);
                     }
                 }
