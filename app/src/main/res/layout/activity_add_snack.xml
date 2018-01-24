@@ -73,7 +73,7 @@
         android:orientation="horizontal"
         android:text="@string/addSnack_isVeggie_checkBox"
         android:textColor="@color/veggie"
-        android:weightSum="1.0"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/add_snack_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
