@@ -4,29 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
 
 import com.onebigfunction.snackattack.R;
 import com.onebigfunction.snackattack.core.MenuAssistant;
 import com.onebigfunction.snackattack.core.Snack;
-import com.onebigfunction.snackattack.order.OrderActivity;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 public final class AddSnackActivity extends AppCompatActivity {
@@ -35,7 +24,7 @@ public final class AddSnackActivity extends AppCompatActivity {
 
     private EditText mSnackNameEditText;
     private EditText mSnackDescriptionEditText;
-    private RadioButton mIsVeggie;
+    private CheckBox mIsVeggie;
     private View mInvalidSnackNameTextView;
     private View mInvalidSnackDescriptionTextView;
 
@@ -55,7 +44,7 @@ public final class AddSnackActivity extends AppCompatActivity {
 
         mSnackNameEditText = (EditText) findViewById(R.id.snackName_editText);
         mSnackDescriptionEditText = (EditText) findViewById(R.id.snackDescription_editText);
-        mIsVeggie = (RadioButton) findViewById(R.id.isVeggie_radioButton);
+        mIsVeggie = (CheckBox) findViewById(R.id.isVeggie_checkBox);
         mInvalidSnackNameTextView = findViewById(R.id.snackName_validationLabel);
         mInvalidSnackDescriptionTextView = findViewById(R.id.snackDescription_validationLabel);
 
