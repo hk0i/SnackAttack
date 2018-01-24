@@ -5,6 +5,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.onebigfunction.snackattack.addsnack.AddSnackActivity">
+    android:paddingEnd="@dimen/marginMedium"
+    android:paddingStart="@dimen/marginMedium"
+    tools:context="com.onebigfunction.snackattack.addsnack.AddSnackActivity"
+    tools:menu="@menu/menu_add_snack_activity">
+
+    <EditText
+        android:id="@+id/snackName_editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginMedium"
+        android:hint="@string/snack_name_edittext_hint"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@id/snackDescription_editText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <EditText
+        android:id="@+id/snackDescription_editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginMedium"
+        android:hint="@string/snack_description_edittext_hint"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@id/isVeggie_radioGroup"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/snackName_editText"
+        />
+
+    <RadioGroup
+        android:id="@+id/isVeggie_radioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginMedium"
+        android:orientation="horizontal"
+        android:weightSum="1.0"
+        app:layout_constraintBottom_toTopOf="@id/add_snack_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/snackDescription_editText">
+
+        <RadioButton
+            android:id="@+id/isVeggie_radioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/isVeggie_label"/>
+
+        <RadioButton
+            android:id="@+id/isNonVeggie_radioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/isNonVeggie_label"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/add_snack_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginMedium"
+        android:text="@string/add_snack_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/isVeggie_radioGroup"/>
 
 </android.support.constraint.ConstraintLayout>

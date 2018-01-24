@@ -9,4 +9,7 @@
     <string name="finish_order_button">Finish</string>
     <string name="items_will_be_waiting">Your items will be waiting for you somewhere… I hope:</string>
     <string name="action_add_snack">Add Snack</string>
+    <string name="snack_name_edittext_hint">Snack Name</string>
+    <string name="snack_description_edittext_hint">Snack Description</string>
+    <string name="add_snack_button">Add Snack</string>
 </resources>
