@@ -106,9 +106,7 @@ final class SnackListAdapter extends RecyclerView.Adapter implements SnackOrderP
 
         // alphabetize snacks
         Collections.sort(tmpSnackList);
-
         mDisplaySnackList = tmpSnackList;
-        notifyDataSetChanged();
     }
 
     private static class ViewHolder extends RecyclerView.ViewHolder implements SnackViewHolder {

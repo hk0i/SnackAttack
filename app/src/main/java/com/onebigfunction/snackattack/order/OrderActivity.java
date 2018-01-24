@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -22,6 +24,7 @@ import com.onebigfunction.snackattack.R;
 import com.onebigfunction.snackattack.addsnack.AddSnackActivity;
 import com.onebigfunction.snackattack.core.MenuAssistant;
 import com.onebigfunction.snackattack.core.ParcelableAssistant;
+import com.onebigfunction.snackattack.core.RecycleViewAnimatedUpdateProtocol;
 import com.onebigfunction.snackattack.core.Snack;
 
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ import java.util.List;
  * Activity for placing a snack order.
  * Not designed for inheritance.
  */
-public final class OrderActivity extends AppCompatActivity {
+public final class OrderActivity extends AppCompatActivity implements RecycleViewAnimatedUpdateProtocol {
 
     private static final String SNACK_LIST_EXTRA = "com.onebigfunction.snackattack.order.OrderActivity.snackList";
     private static final String TAG = OrderActivity.class.getSimpleName();
@@ -137,6 +140,15 @@ public final class OrderActivity extends AppCompatActivity {
     }
 
     @Override
+    public void updateDataSet() {
+        final LayoutAnimationController controller
+                = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_item_from_right);
+        mSnackListRecyclerView.setLayoutAnimation(controller);
+        mSnackListRecyclerView.getAdapter().notifyDataSetChanged();
+        mSnackListRecyclerView.scheduleLayoutAnimation();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -150,7 +162,7 @@ public final class OrderActivity extends AppCompatActivity {
                 mSnackList.add(snack);
                 Collections.sort(mSnackList);
 
-                mSnackListAdapter.notifyDataSetChanged();
+                updateDataSet();
             }
         }
     }
@@ -161,6 +173,7 @@ public final class OrderActivity extends AppCompatActivity {
         if (mShowVeggie) snackFilter |= SnackFilterProtocol.FILTER_TYPE_IS_VEGGIE;
 
         mSnackListAdapter.displayTypesMatching(snackFilter);
+        updateDataSet();
     }
 
     private List<Snack> createDefaultSnackList() {
