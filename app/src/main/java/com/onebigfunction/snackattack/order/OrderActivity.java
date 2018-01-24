@@ -2,18 +2,24 @@ package com.onebigfunction.snackattack.order;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.onebigfunction.snackattack.R;
+import com.onebigfunction.snackattack.addsnack.AddSnackActivity;
 import com.onebigfunction.snackattack.core.ParcelableAssistant;
 import com.onebigfunction.snackattack.core.Snack;
 
@@ -30,7 +36,10 @@ public final class OrderActivity extends AppCompatActivity {
 
     private static final String SNACK_LIST_EXTRA = "com.onebigfunction.snackattack.order.OrderActivity.snackList";
     private static final String TAG = OrderActivity.class.getSimpleName();
+
     private static final int ORDER_CONFIRMATION_REQUEST = 1;
+    private static final int NEW_SNACK_REQUEST = 2;
+
     private List<Snack> mSnackList;
     private boolean mShowVeggie = true;
     private boolean mShowNonVeggie = true;
@@ -53,6 +62,37 @@ public final class OrderActivity extends AppCompatActivity {
                 ParcelableAssistant.makeParcelableArrayList(snackList));
 
         return orderActivityIntent;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_order_activity, menu);
+        tintMenuItems(menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void tintMenuItems(@NonNull final Menu menu) {
+        for (int i = 0; i < menu.size(); i++) {
+            Drawable icon = menu.getItem(i).getIcon();
+            if (icon != null) {
+                icon = DrawableCompat.wrap(icon);
+                DrawableCompat.setTint(icon, getResources().getColor(R.color.textColorOnDark));
+            }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add_snack:
+                startActivityForResult(AddSnackActivity.createIntent(this), NEW_SNACK_REQUEST);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
