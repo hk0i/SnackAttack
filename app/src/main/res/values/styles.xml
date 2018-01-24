@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="formEntryError">
+        <item name="android:textColor">@color/errorColor</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textAlignment">textEnd</item>
+    </style>
+
 </resources>

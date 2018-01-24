@@ -9,4 +9,6 @@
     <color name="veggie">#2e7d32</color>
     <color name="nonVeggie">#b71c1c</color>
     <color name="textColorOnDark">#bfff</color>
+    <color name="red">#DDd50000</color>
+    <color name="errorColor">@color/red</color>
 </resources>

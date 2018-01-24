@@ -12,4 +12,6 @@
     <string name="snack_name_edittext_hint">Snack Name</string>
     <string name="snack_description_edittext_hint">Snack Description</string>
     <string name="add_snack_button">Add Snack</string>
+    <string name="error_new_snack_name_invalid">Please enter a snack name.</string>
+    <string name="error_new_snack_description_invalid">Please enter a snack description.</string>
 </resources>

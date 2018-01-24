@@ -14,41 +14,67 @@
         android:id="@+id/snackName_editText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/marginMedium"
         android:hint="@string/snack_name_edittext_hint"
         android:imeOptions="actionNext"
         android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@id/snackDescription_editText"
+        app:layout_constraintBottom_toTopOf="@id/snackName_validationLabel"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"/>
 
+    <TextView
+        android:id="@+id/snackName_validationLabel"
+        style="@style/formEntryError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/error_new_snack_name_invalid"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/snackDescription_editText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/snackName_editText"
+        tools:visibility="visible"/>
+
     <EditText
         android:id="@+id/snackDescription_editText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/marginMedium"
+        android:layout_marginTop="@dimen/marginMedium"
         android:hint="@string/snack_description_edittext_hint"
         android:imeOptions="actionDone"
         android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@id/snackDescription_validationLabel"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/snackName_validationLabel"
+        />
+
+    <TextView
+        android:id="@+id/snackDescription_validationLabel"
+        style="@style/formEntryError"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/error_new_snack_description_invalid"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/isVeggie_radioGroup"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/snackName_editText"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/snackDescription_editText"
+        tools:visibility="visible"/>
 
     <RadioGroup
         android:id="@+id/isVeggie_radioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/marginMedium"
+        android:layout_marginTop="@dimen/marginMedium"
         android:orientation="horizontal"
         android:weightSum="1.0"
         app:layout_constraintBottom_toTopOf="@id/add_snack_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/snackDescription_editText">
+        app:layout_constraintTop_toBottomOf="@id/snackDescription_validationLabel">
 
         <RadioButton
             android:id="@+id/isVeggie_radioButton"
