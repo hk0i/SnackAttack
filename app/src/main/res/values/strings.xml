@@ -15,4 +15,7 @@
     <string name="error_new_snack_name_invalid">Please enter a snack name.</string>
     <string name="error_new_snack_description_invalid">Please enter a snack description.</string>
     <string name="addSnack_isVeggie_checkBox">This snack is 100% vegetarian friendly.</string>
+    <string name="no_snacks_playful_explanation">Just kidding! You\'ve actually just filtered them all out.\nPlease
+        select Vegetarian or Non-Vegetarian from the checkboxes above.</string>
+    <string name="no_snacks_playful_title">You\'ve eaten all the snacks!</string>
 </resources>

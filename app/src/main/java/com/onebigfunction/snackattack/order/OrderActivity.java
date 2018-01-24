@@ -3,17 +3,16 @@ package com.onebigfunction.snackattack.order;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
@@ -49,6 +48,7 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
     private boolean mShowNonVeggie = true;
     private SnackListAdapter mSnackListAdapter;
     private RecyclerView mSnackListRecyclerView;
+    private ViewGroup mNoSnacksViewGroup;
 
     /**
      * Creates an intent for the Order screen.
@@ -107,6 +107,8 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
         mSnackListAdapter = new SnackListAdapter(mSnackList);
         mSnackListRecyclerView.setAdapter(mSnackListAdapter);
 
+        mNoSnacksViewGroup = (ViewGroup) findViewById(R.id.no_snacks_to_display_group);
+
         final Button placeOrderButton = (Button) findViewById(R.id.order_button);
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +164,9 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
                 mSnackList.add(snack);
                 Collections.sort(mSnackList);
 
+                mSnackListAdapter = new SnackListAdapter(mSnackList);
+                mSnackListRecyclerView.setAdapter(mSnackListAdapter);
+
                 updateDataSet();
             }
         }
@@ -173,6 +178,14 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
         if (mShowVeggie) snackFilter |= SnackFilterProtocol.FILTER_TYPE_IS_VEGGIE;
 
         mSnackListAdapter.displayTypesMatching(snackFilter);
+
+        if (!mShowNonVeggie && !mShowVeggie) {
+            mNoSnacksViewGroup.setVisibility(View.VISIBLE);
+        }
+        else {
+            mNoSnacksViewGroup.setVisibility(View.GONE);
+        }
+
         updateDataSet();
     }
 

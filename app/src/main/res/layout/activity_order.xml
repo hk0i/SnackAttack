@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context="com.onebigfunction.snackattack.order.OrderActivity"
     tools:menu="@menu/menu_order_activity">
 
@@ -14,6 +15,7 @@
         android:layout_height="0dp"
         android:background="@color/lightGray"
         app:layout_constraintBottom_toTopOf="@+id/separator"
+        app:layout_constraintBottom_toBottomOf="@+id/isVeggie_checkBox"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
         />
@@ -45,8 +47,9 @@
         android:layout_height="2dp"
         android:layout_marginTop="@dimen/marginSmall"
         android:background="@color/darkGray"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/snackList_recyclerView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/isVeggie_checkbox"
         />
 
@@ -63,6 +66,45 @@
         app:layout_constraintTop_toBottomOf="@+id/separator"
         tools:listitem="@layout/snack_list_item"
         />
+
+    <LinearLayout
+        android:id="@+id/no_snacks_to_display_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginMedium"
+        android:layout_marginStart="@dimen/marginMedium"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Oh, No!"
+            android:textAlignment="center"
+            android:textSize="30sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/marginSmall"
+            android:text="@string/no_snacks_playful_title"
+            android:textAlignment="center"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_snacks_playful_explanation"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/order_button"
