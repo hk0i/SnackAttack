@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -117,10 +118,20 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
                 final ViewOrderProtocol orderViewer = mSnackListAdapter;
 
                 final List<Snack> order = orderViewer.getOrder();
-                Log.d(TAG, "Submitting order: " + Arrays.toString(order.toArray()));
+                if (order.isEmpty()) {
+                    new AlertDialog.Builder(OrderActivity.this)
+                            .setTitle(R.string.order_something_title)
+                            .setMessage(R.string.order_something_body)
+                            .setPositiveButton(android.R.string.ok, null)
+                            .create()
+                            .show();
+                }
+                else {
+                    Log.d(TAG, "Submitting order: " + Arrays.toString(order.toArray()));
 
-                startActivityForResult(OrderConfirmationActivity.createIntent(OrderActivity.this, order),
-                        ORDER_CONFIRMATION_REQUEST);
+                    startActivityForResult(OrderConfirmationActivity.createIntent(OrderActivity.this, order),
+                            ORDER_CONFIRMATION_REQUEST);
+                }
             }
         });
 
@@ -157,6 +168,8 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
         if (requestCode == ORDER_CONFIRMATION_REQUEST && resultCode == Activity.RESULT_OK) {
             mSnackListAdapter = new SnackListAdapter(mSnackList);
             mSnackListRecyclerView.setAdapter(mSnackListAdapter);
+
+            updateDataSet();
         }
         else if (requestCode == NEW_SNACK_REQUEST && resultCode == Activity.RESULT_OK) {
             final Snack snack = data.getParcelableExtra(AddSnackActivity.ADD_SNACK_RESULT_EXTRA);

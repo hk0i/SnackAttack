@@ -18,4 +18,6 @@
     <string name="no_snacks_playful_explanation">Just kidding! You\'ve actually just filtered them all out.\nPlease
         select Vegetarian or Non-Vegetarian from the checkboxes above.</string>
     <string name="no_snacks_playful_title">You\'ve eaten all the snacks!</string>
+    <string name="order_something_title">Hey!</string>
+    <string name="order_something_body">Order something, silly!</string>
 </resources>
