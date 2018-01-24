@@ -30,7 +30,7 @@ import java.util.List;
 
 
 public final class AddSnackActivity extends AppCompatActivity {
-    private static final String ADD_SNACK_RESULT_EXTRA = "com.onebigfunction.snackattack.addsnack.snackResult";
+    public static final String ADD_SNACK_RESULT_EXTRA = "com.onebigfunction.snackattack.addsnack.snackResult";
     private static final String TAG = AddSnackActivity.class.getSimpleName();
 
     private EditText mSnackNameEditText;

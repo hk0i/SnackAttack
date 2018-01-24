@@ -1,8 +1,10 @@
 package com.onebigfunction.snackattack.order;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -137,8 +139,20 @@ public final class OrderActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mSnackListAdapter = new SnackListAdapter(mSnackList);
-        mSnackListRecyclerView.setAdapter(mSnackListAdapter);
+
+        if (requestCode == ORDER_CONFIRMATION_REQUEST && resultCode == Activity.RESULT_OK) {
+            mSnackListAdapter = new SnackListAdapter(mSnackList);
+            mSnackListRecyclerView.setAdapter(mSnackListAdapter);
+        }
+        else if (requestCode == NEW_SNACK_REQUEST && resultCode == Activity.RESULT_OK) {
+            final Snack snack = data.getParcelableExtra(AddSnackActivity.ADD_SNACK_RESULT_EXTRA);
+            if (snack != null) {
+                mSnackList.add(snack);
+                Collections.sort(mSnackList);
+
+                mSnackListAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     private void updateSnackFilter() {

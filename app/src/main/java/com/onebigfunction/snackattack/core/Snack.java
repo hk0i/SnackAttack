@@ -92,7 +92,7 @@ public final class Snack implements Parcelable, Comparable<Snack> {
 
     @Override
     public int compareTo(@NonNull Snack snack) {
-        return getName().compareTo(snack.getName());
+        return getName().compareToIgnoreCase(snack.getName());
     }
 
     @Override

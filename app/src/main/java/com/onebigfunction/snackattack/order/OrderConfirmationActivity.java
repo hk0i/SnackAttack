@@ -1,5 +1,6 @@
 package com.onebigfunction.snackattack.order;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -61,6 +62,7 @@ public final class OrderConfirmationActivity extends AppCompatActivity {
         finishOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setResult(Activity.RESULT_OK);
                 finish();
             }
         });
