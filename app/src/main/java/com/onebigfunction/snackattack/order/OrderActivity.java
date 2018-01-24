@@ -170,6 +170,7 @@ public final class OrderActivity extends AppCompatActivity {
         defaultList.add(new Snack("Carrots", "Lovely orange carrots fresh from the farm", true));
         defaultList.add(new Snack("Banana", "Chiquita Banana, insane flavor!", true));
         defaultList.add(new Snack("Milkshake", "Home made vanilla milk shake.", true));
+        defaultList.add(new Snack("Veggieburger", "Juicy burger made from some kind of veggie thing.", true));
 
         defaultList.add(new Snack("Cheeseburger", "Flame broiled to perfection", false));
         defaultList.add(new Snack("Hamburger", "Flame broiled to perfection", false));
