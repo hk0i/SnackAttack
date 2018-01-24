@@ -2,9 +2,7 @@ package com.onebigfunction.snackattack.order;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +18,7 @@ import android.widget.CompoundButton;
 
 import com.onebigfunction.snackattack.R;
 import com.onebigfunction.snackattack.addsnack.AddSnackActivity;
+import com.onebigfunction.snackattack.core.MenuAssistant;
 import com.onebigfunction.snackattack.core.ParcelableAssistant;
 import com.onebigfunction.snackattack.core.Snack;
 
@@ -66,21 +65,8 @@ public final class OrderActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_order_activity, menu);
-        tintMenuItems(menu);
-
+        MenuAssistant.bootstrapMenu(this, menu, R.menu.menu_order_activity);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    private void tintMenuItems(@NonNull final Menu menu) {
-        for (int i = 0; i < menu.size(); i++) {
-            Drawable icon = menu.getItem(i).getIcon();
-            if (icon != null) {
-                icon = DrawableCompat.wrap(icon);
-                DrawableCompat.setTint(icon, getResources().getColor(R.color.textColorOnDark));
-            }
-        }
     }
 
     @Override
