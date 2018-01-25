@@ -2,7 +2,7 @@
 
 A Mini Snack Ordering Challenge Project.
 
-![App Screenshot](screenshot.png)
+<img src="screenshot.png" width="50%" alt="SnackAttack App Screenshot" />
 
 ## Task
 
