@@ -49,6 +49,21 @@
         tools:text="@sample/snacks.json/snacks/name"/>
 
     <TextView
+        android:id="@+id/isVeggie_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginSmall"
+        android:layout_marginStart="@dimen/marginMedium"
+        android:layout_marginTop="@dimen/marginMedium"
+        android:text="@string/this_meal_is_vegetarian"
+        android:textAlignment="viewStart"
+        android:textColor="@color/veggie"
+        app:layout_constraintBottom_toTopOf="@id/snackDescription_textView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/snackName_textView"/>
+
+    <TextView
         android:id="@+id/snackDescription_textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -60,7 +75,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/snackName_textView"
+        app:layout_constraintTop_toBottomOf="@id/isVeggie_textView"
         tools:text="@sample/snacks.json/snacks/description"
         />
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
@@ -31,6 +32,7 @@ final class CardSnackViewHolder extends RecyclerView.ViewHolder implements Snack
     @NonNull private final ImageView mSnackImageView;
 
     @NonNull final View mRootView;
+    private final TextView mSnackIsVeggieTextView;
 
     private Snack mSnack;
 
@@ -40,6 +42,7 @@ final class CardSnackViewHolder extends RecyclerView.ViewHolder implements Snack
         // store references to all child views
         mSnackImageView = (ImageView) rootView.findViewById(R.id.snack_imageView);
         mSnackNameTextView = (TextView) rootView.findViewById(R.id.snackName_textView);
+        mSnackIsVeggieTextView = (TextView) rootView.findViewById(R.id.isVeggie_textView);
         mSnackDescriptionTextView = (TextView) rootView.findViewById(R.id.snackDescription_textView);
         mOrderCheckBox = (CheckBox) rootView.findViewById(R.id.order_checkBox);
         mRootView = rootView;
@@ -68,6 +71,17 @@ final class CardSnackViewHolder extends RecyclerView.ViewHolder implements Snack
         mSnackNameTextView.setText(snack.getName());
         mSnackDescriptionTextView.setText(snack.getDescription());
         mOrderCheckBox.setChecked(isInCart);
+
+        final Context context = mRootView.getContext();
+
+        if (snack.isVeggie()) {
+            mSnackIsVeggieTextView.setText(R.string.this_meal_is_vegetarian);
+            mSnackIsVeggieTextView.setTextColor(ContextCompat.getColor(context, R.color.veggie));
+        }
+        else {
+            mSnackIsVeggieTextView.setText(R.string.this_meal_is_not_vegetarian);
+            mSnackIsVeggieTextView.setTextColor(ContextCompat.getColor(context, R.color.nonVeggie));
+        }
 
         if (mSnackImageView.getDrawable() == null) {
             @DrawableRes int backgroundImage;
@@ -99,7 +113,7 @@ final class CardSnackViewHolder extends RecyclerView.ViewHolder implements Snack
                     backgroundImage = R.drawable.plain_burger;
                     break;
 
-                case "Hog dog":
+                case "Hot dog":
                     backgroundImage = R.drawable.hotdog;
                     break;
 
@@ -113,7 +127,7 @@ final class CardSnackViewHolder extends RecyclerView.ViewHolder implements Snack
 
             }
 
-            mSnackImageView.setBackground(mRootView.getContext().getDrawable(backgroundImage));
+            mSnackImageView.setBackground(context.getDrawable(backgroundImage));
         }
     }
 }

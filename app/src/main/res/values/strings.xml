@@ -22,4 +22,6 @@
     <string name="order_something_body">Order something, silly!</string>
     <string name="add_to_order_checkBox">Add to Order</string>
     <string name="toggle_card_view">Toggle card view</string>
+    <string name="this_meal_is_vegetarian">✔ This meal is vegetarian</string>
+    <string name="this_meal_is_not_vegetarian">This meal is non-vegetarian.</string>
 </resources>
