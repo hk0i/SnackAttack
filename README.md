@@ -2,6 +2,8 @@
 
 A Mini Snack Ordering Challenge Project.
 
+![App Screenshot](screenshot.png)
+
 ## Task
 
 Create an Android app which shows a list of snacks to choose from for a quick mid-day snack. The snacks [listitems]
