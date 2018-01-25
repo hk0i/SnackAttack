@@ -11,4 +11,5 @@
     <color name="textColorOnDark">#bfff</color>
     <color name="red">#DDd50000</color>
     <color name="errorColor">@color/red</color>
+    <color name="whiteOverlay">#afff</color>
 </resources>

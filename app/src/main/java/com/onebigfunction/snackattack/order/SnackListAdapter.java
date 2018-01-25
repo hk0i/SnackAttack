@@ -1,14 +1,11 @@
 package com.onebigfunction.snackattack.order;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -33,57 +30,18 @@ import java.util.List;
  * Created by gmcquillan on 1/21/18.
  */
 
-final class SnackListAdapter extends RecyclerView.Adapter implements SnackOrderProtocol, SnackFilterProtocol {
+final class SnackListAdapter extends RecyclerView.Adapter implements SnackFilterProtocol {
 
     private static final String TAG = SnackListAdapter.class.getSimpleName();
 
     @NonNull private final List<Snack> mSnackList;
+    @NonNull
+    private final SnackOrderProtocol mSnackOrderer;
 
     /**
      * This list contains the filtered result of the full list
      */
     @NonNull private List<Snack> mDisplaySnackList;
-
-    @NonNull private final List<Snack> mOrderItems;
-
-    // TODO: possibly move SnackOrderProtocol to separate object.
-    /**
-     * Adds a snack to the list of items to order
-     *
-     * @param snack the snack to add to the order.
-     */
-    @Override
-    public void addSnackToOrder(@NonNull final Snack snack) {
-        Log.d(TAG, "Adding " + snack.toString() + " to order");
-        mOrderItems.add(snack);
-    }
-
-    /**
-     * Removes the given {@code snack} from the list.
-     * Operation performs in O(n) time complexity.
-     *
-     * @param snack snack to find and remove from the list.
-     */
-    @Override
-    public void removeSnackFromOrder(@NonNull Snack snack) {
-        Log.d(TAG, "Removing " + snack.toString() + " from order");
-        mOrderItems.remove(snack);
-    }
-
-    @Override
-    public boolean snackOrderContains(@NonNull Snack snack) {
-        return mOrderItems.contains(snack);
-    }
-
-    /**
-     * Returns an immutable copy of the ordered items.
-     *
-     * @return an immutable copy of the snack order line items.
-     */
-    @Override
-    public List<Snack> getOrder() {
-        return Collections.unmodifiableList(mOrderItems);
-    }
 
     @Override
     public void displayTypesMatching(@FilterType final int filterType) {
@@ -169,10 +127,11 @@ final class SnackListAdapter extends RecyclerView.Adapter implements SnackOrderP
      * Creates a new {@link SnackListAdapter}.
      * @param snackList a list of snacks to display in the adapter.
      */
-    SnackListAdapter(@NonNull final List<Snack> snackList) {
+    SnackListAdapter(@NonNull final List<Snack> snackList,
+                     @NonNull final SnackOrderProtocol snackOrderer) {
         mSnackList = snackList;
+        mSnackOrderer = snackOrderer;
         mDisplaySnackList = mSnackList;
-        mOrderItems = new ArrayList<>();
     }
 
     @Override
@@ -180,7 +139,7 @@ final class SnackListAdapter extends RecyclerView.Adapter implements SnackOrderP
         final View snackListItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.snack_list_item,
                 parent, false);
 
-        return new ViewHolder(parent.getContext(), snackListItemView, this);
+        return new ViewHolder(parent.getContext(), snackListItemView, mSnackOrderer);
     }
 
     @Override
@@ -188,7 +147,7 @@ final class SnackListAdapter extends RecyclerView.Adapter implements SnackOrderP
         SnackViewHolder viewHolder = (SnackViewHolder) holder;
         final Snack snack = mDisplaySnackList.get(position);
 
-        viewHolder.bind(snack, snackOrderContains(snack));
+        viewHolder.bind(snack, mSnackOrderer.snackOrderContains(snack));
     }
 
     @Override

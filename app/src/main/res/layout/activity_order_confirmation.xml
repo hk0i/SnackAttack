@@ -46,14 +46,17 @@
 
     <Button
         android:id="@+id/finishOrder_button"
-        android:layout_width="wrap_content"
+        style="@style/AppTheme.Button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
+        android:layout_marginEnd="@dimen/marginMedium"
+        android:layout_marginStart="@dimen/marginMedium"
         android:layout_marginTop="20dp"
         android:text="@string/finish_order_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         />
 
 </android.support.constraint.ConstraintLayout>

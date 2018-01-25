@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
@@ -50,6 +49,7 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
     private SnackListAdapter mSnackListAdapter;
     private RecyclerView mSnackListRecyclerView;
     private ViewGroup mNoSnacksViewGroup;
+    private SnackOrderer mSnackOrderer;
 
     /**
      * Creates an intent for the Order screen.
@@ -105,17 +105,38 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
             mSnackList = createDefaultSnackList();
         }
 
-        mSnackListAdapter = new SnackListAdapter(mSnackList);
+        final View placeOrderButton = findViewById(R.id.order_button);
+        mSnackOrderer = new SnackOrderer(new SnackOrderer.SnackOrderListener() {
+            @Override
+            public void onNewOrder() {
+                placeOrderButton.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onSnackAdded(Snack snack, List<Snack> fullOrder) {
+                if (placeOrderButton.getVisibility() != View.VISIBLE) {
+                    placeOrderButton.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onSnackRemoved(Snack snack, List<Snack> fullOrder) {
+                if (fullOrder.size() == 0) {
+                    placeOrderButton.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        mSnackListAdapter = new SnackListAdapter(mSnackList, mSnackOrderer);
         mSnackListRecyclerView.setAdapter(mSnackListAdapter);
 
         mNoSnacksViewGroup = (ViewGroup) findViewById(R.id.no_snacks_to_display_group);
 
-        final Button placeOrderButton = (Button) findViewById(R.id.order_button);
         placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 @SuppressWarnings("UnnecessaryLocalVariable") // trying to restrict functionality of the order handler.
-                final ViewOrderProtocol orderViewer = mSnackListAdapter;
+                final ViewOrderProtocol orderViewer = mSnackOrderer;
 
                 final List<Snack> order = orderViewer.getOrder();
                 if (order.isEmpty()) {
@@ -166,9 +187,7 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ORDER_CONFIRMATION_REQUEST && resultCode == Activity.RESULT_OK) {
-            mSnackListAdapter = new SnackListAdapter(mSnackList);
-            mSnackListRecyclerView.setAdapter(mSnackListAdapter);
-
+            mSnackOrderer.newOrder();
             updateDataSet();
         }
         else if (requestCode == NEW_SNACK_REQUEST && resultCode == Activity.RESULT_OK) {
@@ -177,7 +196,7 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
                 mSnackList.add(snack);
                 Collections.sort(mSnackList);
 
-                mSnackListAdapter = new SnackListAdapter(mSnackList);
+                mSnackListAdapter = new SnackListAdapter(mSnackList, mSnackOrderer);
                 mSnackListRecyclerView.setAdapter(mSnackListAdapter);
 
                 updateDataSet();

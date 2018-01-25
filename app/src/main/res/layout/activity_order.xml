@@ -14,8 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:background="@color/lightGray"
-        app:layout_constraintBottom_toTopOf="@+id/separator"
         app:layout_constraintBottom_toBottomOf="@+id/isVeggie_checkBox"
+        app:layout_constraintBottom_toTopOf="@+id/separator"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
         />
@@ -57,10 +57,11 @@
         android:id="@+id/snackList_recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/marginMedium"
         android:layout_marginEnd="@dimen/marginSmall"
         android:layout_marginStart="@dimen/marginSmall"
         android:layoutAnimation="@anim/layout_item_from_right"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/order_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/separator"
@@ -108,12 +109,15 @@
 
     <Button
         android:id="@+id/order_button"
+        style="@style/AppTheme.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="@dimen/marginMedium"
+        android:layout_marginEnd="@dimen/marginMedium"
         android:text="@string/placeOrderButton"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"/>
+        app:layout_constraintRight_toLeftOf="parent"
+        tools:visibility="visible"/>
 
 </android.support.constraint.ConstraintLayout>
