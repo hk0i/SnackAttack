@@ -82,6 +82,7 @@
 
     <Button
         android:id="@+id/add_snack_button"
+        style="@style/AppTheme.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/marginMedium"
