@@ -20,4 +20,6 @@
     <string name="no_snacks_playful_title">You\'ve eaten all the snacks!</string>
     <string name="order_something_title">Hey!</string>
     <string name="order_something_body">Order something, silly!</string>
+    <string name="add_to_order_checkBox">Add to Order</string>
+    <string name="toggle_card_view">Toggle card view</string>
 </resources>

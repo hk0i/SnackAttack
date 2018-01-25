@@ -2,4 +2,5 @@
 <resources>
     <dimen name="marginSmall">8dp</dimen>
     <dimen name="marginMedium">16dp</dimen>
+    <dimen name="cardElevation">2dp</dimen>
 </resources>

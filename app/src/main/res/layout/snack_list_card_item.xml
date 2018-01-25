@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             android:layout_marginBottom="@dimen/marginSmall"
+                                             android:layout_marginEnd="@dimen/marginMedium"
+                                             android:layout_marginStart="@dimen/marginMedium"
+                                             android:layout_marginTop="@dimen/marginSmall"
+                                             android:background="@drawable/card_background"
+                                             android:elevation="@dimen/cardElevation">
+
+    <ImageView
+        android:id="@+id/snack_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="@dimen/marginSmall"
+        android:layout_marginTop="@dimen/marginMedium"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/snackName_textView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/apple"
+        />
+
+    <CheckBox
+        android:id="@+id/order_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginMedium"
+        android:text="@string/add_to_order_checkBox"
+        app:layout_constraintBaseline_toBaselineOf="@+id/snackName_textView"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/snackName_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginMedium"
+        android:layout_marginStart="@dimen/marginMedium"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="23sp"
+        app:layout_constraintBottom_toTopOf="@id/snackDescription_textView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/snack_imageView"
+        tools:text="@sample/snacks.json/snacks/name"/>
+
+    <TextView
+        android:id="@+id/snackDescription_textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginMedium"
+        android:layout_marginEnd="@dimen/marginMedium"
+        android:layout_marginStart="@dimen/marginMedium"
+        android:layout_marginTop="@dimen/marginMedium"
+        android:padding="@dimen/marginSmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/snackName_textView"
+        tools:text="@sample/snacks.json/snacks/description"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

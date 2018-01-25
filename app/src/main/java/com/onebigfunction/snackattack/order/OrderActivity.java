@@ -25,6 +25,7 @@ import com.onebigfunction.snackattack.core.MenuAssistant;
 import com.onebigfunction.snackattack.core.ParcelableAssistant;
 import com.onebigfunction.snackattack.core.RecycleViewAnimatedUpdateProtocol;
 import com.onebigfunction.snackattack.core.Snack;
+import com.onebigfunction.snackattack.order.snackview.SnackViewFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +51,8 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
     private RecyclerView mSnackListRecyclerView;
     private ViewGroup mNoSnacksViewGroup;
     private SnackOrderer mSnackOrderer;
+    private boolean mShowCardView;
+    private Menu mMenu;
 
     /**
      * Creates an intent for the Order screen.
@@ -72,6 +75,7 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         MenuAssistant.bootstrapMenu(this, menu, R.menu.menu_order_activity);
+        mMenu = menu;
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -82,9 +86,32 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
                 startActivityForResult(AddSnackActivity.createIntent(this), NEW_SNACK_REQUEST);
                 return true;
 
+            case R.id.action_accessorize:
+                toggleCardView();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void toggleCardView() {
+        if (mShowCardView) {
+            mSnackListAdapter = new SnackListAdapter(mSnackList, mSnackOrderer,
+                    SnackViewFactory.SnackViewType.LIST_ITEM);
+            mMenu.getItem(0).setIcon(R.drawable.ic_image_black_24dp);
+        }
+        else {
+            mSnackListAdapter = new SnackListAdapter(mSnackList, mSnackOrderer,
+                    SnackViewFactory.SnackViewType.CARD_VIEW);
+            mMenu.getItem(0).setIcon(R.drawable.ic_list_black_24dp);
+        }
+
+        mSnackListRecyclerView.setAdapter(mSnackListAdapter);
+        MenuAssistant.tintMenuItems(mMenu, this);
+
+        updateDataSet();
+        mShowCardView = !mShowCardView;
     }
 
     @Override
@@ -127,7 +154,7 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
             }
         });
 
-        mSnackListAdapter = new SnackListAdapter(mSnackList, mSnackOrderer);
+        mSnackListAdapter = new SnackListAdapter(mSnackList, mSnackOrderer, SnackViewFactory.SnackViewType.LIST_ITEM);
         mSnackListRecyclerView.setAdapter(mSnackListAdapter);
 
         mNoSnacksViewGroup = (ViewGroup) findViewById(R.id.no_snacks_to_display_group);
@@ -196,7 +223,9 @@ public final class OrderActivity extends AppCompatActivity implements RecycleVie
                 mSnackList.add(snack);
                 Collections.sort(mSnackList);
 
-                mSnackListAdapter = new SnackListAdapter(mSnackList, mSnackOrderer);
+                mSnackListAdapter = new SnackListAdapter(mSnackList, mSnackOrderer, mShowCardView
+                                ? SnackViewFactory.SnackViewType.CARD_VIEW
+                                : SnackViewFactory.SnackViewType.LIST_ITEM);
                 mSnackListRecyclerView.setAdapter(mSnackListAdapter);
 
                 updateDataSet();

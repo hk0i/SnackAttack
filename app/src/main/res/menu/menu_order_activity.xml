@@ -3,6 +3,13 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_accessorize"
+        android:icon="@drawable/ic_image_black_24dp"
+        android:title="@string/toggle_card_view"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
         android:id="@+id/action_add_snack"
         android:icon="@drawable/ic_add_black_24dp"
         android:title="@string/action_add_snack"

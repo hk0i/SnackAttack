@@ -2,34 +2,42 @@
   "snacks": [
     {
       "name": "Apple",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lobortis velit a mollis sagittis. Fusce gravida, lectus vel feugiat facilisis, ipsum risus ullamcorper mauris, eget lobortis urna massa in lacus.",
       "type": "Veggie"
     },
     {
       "name": "Banana",
+      "description": "Mauris enim eros, condimentum nec ligula et, consectetur finibus erat. Donec sed eros tellus. ",
       "type": "Veggie"
     },
     {
       "name": "Carrots",
+      "description": "Quisque neque turpis, elementum id nunc ut, luctus condimentum justo. In hac habitasse platea dictumst. Vivamus facilisis tincidunt est ut rhoncus.",
       "type": "Veggie"
     },
     {
       "name": "Cheeseburger",
+      "description": "Donec commodo odio sed dictum dictum. Ut sed ligula sit amet tortor aliquet ultricies in consectetur eros.",
       "type": "Non-Veggie"
     },
     {
       "name": "French fries",
+      "description": "Nunc turpis lectus, commodo laoreet ligula cursus, tempus mollis lectus. In lobortis massa velit, a commodo erat varius eget.",
       "type": "Veggie"
     },
     {
       "name": "Hamburger",
+      "description": "Suspendisse pretium felis ipsum, eu vulputate lorem interdum et. Etiam leo magna, semper in viverra eget, vehicula a quam. Proin ac risus vel velit dictum iaculis a id elit.",
       "type": "Non-Veggie"
     },
     {
       "name": "Hot dog",
+      "description": "Phasellus dignissim nec purus ut vulputate. Nunc id lectus eu ipsum vehicula maximus non auctor mi. Proin metus arcu, tempus at mauris et, pharetra pretium magna.",
       "type": "Non-Veggie"
     },
     {
       "name": "Milk shake",
+      "description": "Nunc turpis lectus, commodo laoreet ligula cursus, tempus mollis lectus. In lobortis massa velit, a commodo erat varius eget.",
       "type": "Non-Veggie"
     }
   ]

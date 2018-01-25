@@ -9,7 +9,7 @@ import com.onebigfunction.snackattack.core.Snack;
  *
  * Created by gmcquillan on 1/22/18.
  */
-interface SnackOrderProtocol extends ViewOrderProtocol {
+public interface SnackOrderProtocol extends ViewOrderProtocol {
     void newOrder();
     void addSnackToOrder(@NonNull final Snack snack);
     void removeSnackFromOrder(@NonNull final Snack snack);
